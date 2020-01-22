@@ -3,15 +3,11 @@ require 'active_support/inflector'
 class Rgen::Gen::ModelGenerator
   include ActiveSupport::Inflector
 
-  def init()
-  end
-
   def generate(model)
     generate_file_content(
       model.name,
       generate_belongs_string(model),
-      generate_validations_string(model)
-    )
+      generate_validations_string(model))
   end
 
   private
@@ -34,11 +30,11 @@ end
   end
 
   def generate_belongs_string(model)
-    rv = []
+    rva = []
     model.belong_tos.each do |b|
-      rv << generate_single_belongs(b, model)
+      rva << generate_single_belongs(b, model)
     end
-    rv.join("\n")
+    rva.join("\n")
   end
 
   def generate_validation_for_attribute(att)
@@ -57,11 +53,11 @@ end
   end
 
   def generate_validations_string(model)
-    rv = []
+    rva = []
     model.attributes.each do |att|
       val = generate_validation_for_attribute(att)
-      rv << val unless val.nil?
+      rva << val unless val.nil?
     end
-    rv.join("\n")
+    rva.join("\n")
   end
 end

@@ -10,5 +10,9 @@ model.attributes << Rgen::Struct::Attribute.new('name', 'string',
 
 
 mogen = Rgen::Gen::ModelGenerator.new
+#puts mogen.generate(model)
+#puts "--"
+#puts
 
-puts mogen.generate(model)
+specgen = Rgen::Gen::SpecGenerator.new
+puts specgen.generate(model)
