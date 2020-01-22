@@ -1,3 +1,6 @@
+.DS_Store
+*sw?
+
 *.gem
 *.rbc
 /.config
