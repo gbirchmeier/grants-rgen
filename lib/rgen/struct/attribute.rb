@@ -1,7 +1,9 @@
 class Rgen::Struct::Attribute
   attr_reader :name, :datatype, :presence, :unique
 
-  def initialize(name, datatype, presence: false, unique: false, factory_sequence: false)
+  def initialize(name, datatype, presence: false,
+                                 unique: false,
+                                 factory_sequence: false)
     @name = name
     @datatype = datatype
     @presence = !!presence

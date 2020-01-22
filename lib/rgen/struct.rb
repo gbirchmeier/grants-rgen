@@ -4,7 +4,6 @@ module Rgen
   end
 end
 
-
 require 'rgen/struct/attribute'
 require 'rgen/struct/belong_to'
 require 'rgen/struct/model'
