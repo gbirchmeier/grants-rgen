@@ -15,4 +15,7 @@ mogen = Rgen::Gen::ModelGenerator.new
 #puts
 
 specgen = Rgen::Gen::SpecGenerator.new
-puts specgen.generate(model)
+#puts specgen.generate(model)
+
+factorygen = Rgen::Gen::FactoryGenerator.new
+puts factorygen.generate(model)

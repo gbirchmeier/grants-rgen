@@ -6,3 +6,4 @@ end
 
 require 'rgen/gen/model_generator'
 require 'rgen/gen/spec_generator'
+require 'rgen/gen/factory_generator'

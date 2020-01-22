@@ -3,7 +3,7 @@ class Rgen::Struct::BelongTo
 
   def initialize(model, optional: true,
                         plural_inverse: false)
-    @model = model
+    @model = model.underscore
     @optional = !!optional
     @plural_inverse = !!plural_inverse
   end
