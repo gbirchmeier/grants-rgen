@@ -18,4 +18,7 @@ specgen = Rgen::Gen::SpecGenerator.new
 #puts specgen.generate(model)
 
 factorygen = Rgen::Gen::FactoryGenerator.new
-puts factorygen.generate(model)
+#puts factorygen.generate(model)
+
+aagen = Rgen::Gen::ActiveAdminGenerator.new
+puts aagen.generate(model)
