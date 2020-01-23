@@ -21,4 +21,7 @@ factorygen = Rgen::Gen::FactoryGenerator.new
 #puts factorygen.generate(model)
 
 aagen = Rgen::Gen::ActiveAdminGenerator.new
-puts aagen.generate(model)
+#puts aagen.generate(model)
+
+mcgen = Rgen::Gen::MigrationCommandGenerator.new
+puts mcgen.generate(model)
