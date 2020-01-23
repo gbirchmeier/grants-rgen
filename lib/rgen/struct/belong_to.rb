@@ -1,3 +1,5 @@
+require 'active_support/inflector'
+
 class Rgen::Struct::BelongTo
   attr_reader :model, :optional, :plural_inverse
 

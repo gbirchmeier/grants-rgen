@@ -1,7 +1,6 @@
 require 'active_support/inflector'
 
 class Rgen::Gen::MigrationCommandGenerator
-  include ActiveSupport::Inflector
 
   def generate(model)
     params = build_params(model)

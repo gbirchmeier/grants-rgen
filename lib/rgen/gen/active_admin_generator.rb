@@ -1,7 +1,4 @@
-require 'active_support/inflector'
-
 class Rgen::Gen::ActiveAdminGenerator
-  include ActiveSupport::Inflector
 
   def generate(model)
     generate_file_content(
