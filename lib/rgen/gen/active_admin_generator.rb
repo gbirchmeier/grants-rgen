@@ -44,7 +44,7 @@ ActiveAdmin.register #{model_name} do
   form do |f|
     f.semantic_errors(*f.object.errors.keys)
     f.inputs do
-      # f.input :not_a_string, as: :string, hint: 'this is a hint'
+      # f.input :not_a_string, as: :string, hint: 'this is a hint', member_label: :debug_name
 #{form_cols_str}
     end
     f.actions
@@ -54,7 +54,7 @@ TEMPLATE_END
   end
 
   def generate_permit_params(model)
-    (model.attributes.collect(&:name) + model.belong_tos.collect(&:model)).collect {|x| ":#{x}"}
+    (model.attributes.collect(&:name) + model.belong_tos.collect{|bt| "#{bt.model}_id"}).collect {|x| ":#{x}"}
   end
 
   def generate_index_columns(model)

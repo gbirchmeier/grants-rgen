@@ -4,7 +4,7 @@ class Rgen::Gen::MigrationCommandGenerator
 
   def generate(model)
     params = build_params(model)
-    "rails generate migration Create#{model.name.pluralize} #{params.join(' ')}"
+    "rails generate migration Create#{model.name.pluralize} #{params.join(' ')} --timestamps"
   end
 
   private
