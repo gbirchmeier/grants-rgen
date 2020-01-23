@@ -42,10 +42,19 @@ TEMPLATE_END
     rva.join("\n")
   end
 
+  def generate_specs_for_belong_tos(bt)
+    return nil if bt.optional
+    "    it { should validate_presence_of(:#{bt.model}).with_message('must exist') }"
+  end
+
   def generate_specs_string(model)
     rva = []
     model.attributes.each do |att|
       val = generate_specs_for_attribute(att)
+      rva << val unless val.nil?
+    end
+    model.belong_tos.each do |bt|
+      val = generate_specs_for_belong_tos(bt)
       rva << val unless val.nil?
     end
     rva.join("\n")

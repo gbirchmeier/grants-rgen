@@ -60,7 +60,7 @@ TEMPLATE_END
   end
 
   def generate_for_belong_to(bt)
-    return nil unless bt.optional
+    return nil if bt.optional
     "    #{bt.model} { FactoryBot.create(:#{bt.model}) }"
   end
 
