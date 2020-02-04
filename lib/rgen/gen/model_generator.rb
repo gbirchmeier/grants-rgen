@@ -22,7 +22,13 @@ TEMPLATE_END
 end
 
   def generate_single_belongs(belong, model)
-    rv = "  belongs_to :#{belong.model.underscore}, "
+    rv = ''
+    if model.name
+      rv << "  belongs_to :#{belong.name}, "
+      rv << "class_name: '#{belong.model.camelize}', "
+    else
+      rv << "  belongs_to :#{belong.model.underscore}, "
+    end
     rv << "inverse_of: :#{belong.plural_inverse ? model.name.underscore.pluralize : model.name.underscore}, "
     rv << "optional: #{belong.optional}"
     rv

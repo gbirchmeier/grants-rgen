@@ -44,7 +44,7 @@ TEMPLATE_END
 
   def generate_specs_for_belong_tos(bt)
     return nil if bt.optional
-    "    it { should validate_presence_of(:#{bt.model}).with_message('must exist') }"
+    "    it { should validate_presence_of(:#{bt.name || bt.model}).with_message('must exist') }"
   end
 
   def generate_specs_string(model)

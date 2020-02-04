@@ -61,7 +61,11 @@ TEMPLATE_END
 
   def generate_for_belong_to(bt)
     return nil if bt.optional
-    "    #{bt.model} { FactoryBot.create(:#{bt.model}) }"
+    if bt.name
+      "    association :#{bt.name}, factory: :#{bt.model}"
+    else
+      "    #{bt.model} { FactoryBot.create(:#{bt.model}) }"
+    end
   end
 
   def generate_default_values_string_from_belong_tos(model)

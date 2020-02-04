@@ -54,27 +54,27 @@ TEMPLATE_END
   end
 
   def generate_permit_params(model)
-    (model.attributes.collect(&:name) + model.belong_tos.collect{|bt| "#{bt.model}_id"}).collect {|x| ":#{x}"}
+    (model.attributes.collect(&:name) + model.belong_tos.collect{|bt| "#{bt.name || bt.model}_id"}).collect {|x| ":#{x}"}
   end
 
   def generate_index_columns(model)
     rva = []
     rva += model.attributes.collect {|att| "    column :#{att.name}"}
-    rva += model.belong_tos.collect {|bt| "    column :#{bt.model}"}
+    rva += model.belong_tos.collect {|bt| "    column :#{bt.name || bt.model}"}
     rva.join "\n"
   end
 
   def generate_show_columns(model)
     rva = []
     rva += model.attributes.collect {|att| "      row :#{att.name}"}
-    rva += model.belong_tos.collect {|bt| "      row :#{bt.model}"}
+    rva += model.belong_tos.collect {|bt| "      row :#{bt.name || bt.model}"}
     rva.join "\n"
   end
 
   def generate_form_columns(model)
     rva = []
     rva += model.attributes.collect {|att| "      f.input :#{att.name}"}
-    rva += model.belong_tos.collect {|bt| "      f.input :#{bt.model}"}
+    rva += model.belong_tos.collect {|bt| "      f.input :#{bt.name || bt.model}"}
     rva.join "\n"
   end
 end
