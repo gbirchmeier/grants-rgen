@@ -31,7 +31,7 @@ File.write(aapath, aagen.generate(model))
 
 puts "Here's your migration command:"
 puts
-puts "  mcgen.generate(model)"
+puts "  #{mcgen.generate(model)}"
 puts
 puts "NOTE: don't forget to add default values to the migration"
 
