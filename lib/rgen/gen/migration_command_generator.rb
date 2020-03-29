@@ -2,9 +2,13 @@ require 'active_support/inflector'
 
 class Rgen::Gen::MigrationCommandGenerator
 
-  def generate(model)
+  def generate_stdout(model)
     params = build_params(model)
-    "rails generate migration Create#{model.name.pluralize} #{params.join(' ')} --timestamps"
+    a = ['Migration command:']
+    a << "  > rails generate migration Create#{model.name.pluralize} #{params.join(' ')} --timestamps"
+    a << "  NOTE: don't forget to add default values to the migration!"
+    a << '' << ''
+    a.join("\n")
   end
 
   private

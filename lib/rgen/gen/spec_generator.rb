@@ -2,10 +2,14 @@ require 'active_support/inflector'
 
 class Rgen::Gen::SpecGenerator
 
-  def generate(model)
-    generate_file_content(
-      model.name,
-      generate_specs_string(model))
+  def generate_file(model, destination)
+    fullpath = File.join(destination, model.name.underscore + '_spec.rb')
+    File.write(
+      fullpath,
+      generate_file_content(
+        model.name,
+        generate_specs_string(model)))
+    fullpath
   end
 
   private

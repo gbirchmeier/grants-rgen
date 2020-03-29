@@ -1,7 +1,14 @@
 ---
 destinations:
-  rails_models: ../output/models
-  rspecs: ../output/spec
+  # Make sure you create these directories; RGen won't do it for you.
+  #
+  # If paths start with "/", they'll be treated as absolute paths.
+  #   Otherwise, they'll be relative to the location of this file.
+  #
+  # If you don't want to generate one of these (e.g. factories),
+  #   simply comment out the (e.g.) factory_bot line.
+  rails_model: ../output/models
+  rspec: ../output/spec
   factory_bot: ../output/factories
   active_admin: ../output/admin
 

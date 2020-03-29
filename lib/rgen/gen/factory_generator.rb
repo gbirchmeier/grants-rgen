@@ -2,11 +2,15 @@ require 'active_support/inflector'
 
 class Rgen::Gen::FactoryGenerator
 
-  def generate(model)
-    generate_file_content(
-      model.name,
-      generate_default_values_string_from_attributes(model),
-      generate_default_values_string_from_belong_tos(model))
+  def generate_file(model, destination)
+    fullpath = File.join(destination, model.name.pluralize.underscore + '.rb')
+    File.write(
+      fullpath,
+      generate_file_content(
+        model.name,
+        generate_default_values_string_from_attributes(model),
+        generate_default_values_string_from_belong_tos(model)))
+    fullpath
   end
 
   private

@@ -1,12 +1,16 @@
 class Rgen::Gen::ActiveAdminGenerator
 
-  def generate(model)
-    generate_file_content(
-      model.name,
-      generate_permit_params(model),
-      generate_index_columns(model),
-      generate_show_columns(model),
-      generate_form_columns(model))
+  def generate_file(model, destination)
+    fullpath = File.join(destination, model.name.pluralize.underscore + '.rb')
+    File.write(
+      fullpath,
+      generate_file_content(
+        model.name,
+        generate_permit_params(model),
+        generate_index_columns(model),
+        generate_show_columns(model),
+        generate_form_columns(model)))
+    fullpath
   end
 
   private

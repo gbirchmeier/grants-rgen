@@ -2,11 +2,15 @@ require 'active_support/inflector'
 
 class Rgen::Gen::ModelGenerator
 
-  def generate(model)
-    generate_file_content(
-      model.name,
-      generate_belongs_string(model),
-      generate_validations_string(model))
+  def generate_file(model, destination)
+    fullpath = File.join(destination, model.name.underscore + '.rb')
+    File.write(
+      fullpath,
+      generate_file_content(
+        model.name,
+        generate_belongs_string(model),
+        generate_validations_string(model)))
+    fullpath
   end
 
   private
