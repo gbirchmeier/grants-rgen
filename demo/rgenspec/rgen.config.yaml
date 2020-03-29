@@ -1,0 +1,9 @@
+---
+destinations:
+  rails_models: ../output/models
+  rspecs: ../output/spec
+  factory_bot: ../output/factories
+  active_admin: ../output/admin
+
+stdout:
+  - migration_cmd

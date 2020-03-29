@@ -2,6 +2,7 @@
 module Rgen
 end
 
-require 'rgen/struct'
 require 'rgen/gen'
+require 'rgen/main'
+require 'rgen/struct'
 

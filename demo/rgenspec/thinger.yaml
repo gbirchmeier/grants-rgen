@@ -1,0 +1,21 @@
+---
+# A note on optional/required:
+#   Default value is "optional".  If both are present, rgen will error out.
+model:
+  name: thinger
+  attributes:
+    name: string unique required factory_sequence
+    qty: integer optional
+    weight: decimal
+    approved: boolean
+  belong_to:
+    # Each key is the association name.
+    # Under that, "model" specifies the associated model.
+    #   ("model" is optional if association name and model name are the same)
+    # "Properties" can be omitted if defaults are fine with you.
+    product_line:
+      properties: required inverse_is_plural
+    managing_owner:
+      model: owner
+      properties: optional inverse_is_plural
+    manufacturer:
