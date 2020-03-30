@@ -1,0 +1,13 @@
+Generating rails_model:
+  wrote: /Users/grantb/dev/grants-rgen/demo/rgenspec/../output/models/thinger.rb
+Generating rspec:
+  wrote: /Users/grantb/dev/grants-rgen/demo/rgenspec/../output/spec/thinger_spec.rb
+Generating factory_bot:
+  wrote: /Users/grantb/dev/grants-rgen/demo/rgenspec/../output/factories/thingers.rb
+Generating active_admin:
+  wrote: /Users/grantb/dev/grants-rgen/demo/rgenspec/../output/admin/thingers.rb
+
+Migration command:
+  > rails generate migration Createthingers name:string qty:integer weight:decimal approved:boolean product_line:references owner:references manufacturer:references --timestamps
+  NOTE: don't forget to add default values to the migration!
+
