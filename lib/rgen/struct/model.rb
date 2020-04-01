@@ -10,7 +10,7 @@ class Rgen::Struct::Model
     inp['attributes']&.each do |k,v|
       rv.attributes << Rgen::Struct::Attribute.create(k, v.split(' '))
     end
-    inp['belong_to']&.each do |k,v|
+    inp['belongs_to']&.each do |k,v|
       rv.belong_tos << Rgen::Struct::BelongTo.create(k, v || {})
     end
 

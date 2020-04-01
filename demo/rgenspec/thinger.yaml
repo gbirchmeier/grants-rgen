@@ -4,11 +4,16 @@
 model:
   name: thinger
   attributes:
+    # <attribute name>: <space-separated settings>
+    # -> One of those attributes *must* be a datatype: string/integer/decimal/boolean
+    # -> 'factory_sequence' (strings only) means the factory setter should be a sequence
     name: string unique required factory_sequence
     qty: integer optional
     weight: decimal
     approved: boolean
-  belong_to:
+
+  # Only belongs_to associations are supported right now.
+  belongs_to:
     # Each key is the association name.
     # Under that, "model" specifies the associated model.
     #   ("model" is optional if association name and model name are the same)

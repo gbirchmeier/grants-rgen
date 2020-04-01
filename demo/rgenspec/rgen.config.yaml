@@ -7,10 +7,21 @@ destinations:
   #
   # If you don't want to generate one of these (e.g. factories),
   #   simply comment out the (e.g.) factory_bot line.
+
+  # This config is just for the demo view.
   rails_model: ../output/models
   rspec: ../output/spec
   factory_bot: ../output/factories
   active_admin: ../output/admin
+
+  # This config is more like what an actual Rails project would use.
+  # (or at least, *my* Rails projects)
+  #
+  # rails_model: <rails_root>/app/models
+  # rspec: <rails_root>/spec/models
+  # factory_bot: <rails_root>/spec/factories
+  # active_admin: <rails_root>/app/admin
+
 
 stdout:
   - migration_cmd

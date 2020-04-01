@@ -8,7 +8,7 @@ class Rgen::Struct::Attribute
 
     Rgen::Struct::Attribute.new(name,
       datatype,
-      presence: settings.include?('presence'),
+      presence: settings.include?('required'),
       unique: settings.include?('unique'),
       factory_sequence: settings.include?('factory_sequence'))
   rescue => e
