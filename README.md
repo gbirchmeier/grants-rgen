@@ -3,7 +3,7 @@
 
 Given this input file:
 
-* [demo/rgenspec/thinger](thinger.yaml)
+* [demo/rgenspec/thinger.yaml](demo/rgenspec/thinger.yaml)
 
 ...it will output [these files](/demo/output/):
 
@@ -26,7 +26,7 @@ looking up syntax for uncommon cases is annoying.
 This junk can be generated, so it *should* be generated!
 
 Instead of specifying the attributes & associations via clunky command line,
-you put them in a yaml file that `rgen` reads.  This is great, because often I
+you put them in a yaml file that RGen reads.  This is great, because often I
 mess up once or twice before getting it right; I can just edit
 the yaml file and re-run the generator.
 
