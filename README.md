@@ -60,11 +60,25 @@ It just reads an input and spits out files.
     
     `grants-rgen$ ruby -I lib/ rgen.rb demo/rgenspec/thinger.yaml`
 
+6. **Run the migration command.**
+
+    RGen's output gives you the migration-generator command to run.  Copy/paste and run it!
+
+    And then don't forget to edit the resulting migration to add default values.
+
 ## FAQ
+
+**Q: Should I check the model yaml files into my source repo?**
+
+Your call.  You probably won't use it again.
+
+Might be handy for future reference.
 
 **Q: Can it generate controllers or views?**
 
 No.  I don't use generators for those, so it's not really part of my workflow.
+
+It could be done. (You could write a generator for _anything_.)
 
 **Q: Why isn't this a gem?**
 
