@@ -7,13 +7,13 @@ Given this input file:
 
 ...it will output [these files](/demo/output/):
 
-* regular Rails model with validations and `belongs_to` associations
-* RSpec file with attribute validations (using shoulda-matchers)
-* FactoryBot factory with decent defaults (even sequences!)
-* ActiveAdmin config for the model with a basic index/view/form implemented,
+* **regular Rails model** with validations and `belongs_to` associations
+* **RSpec model spec** with attribute validations (using shoulda-matchers)
+* **FactoryBot factory** with decent defaults (even sequences!)
+* **ActiveAdmin config** for with a basic index/view/form implemented,
   and some commented-out options you might want to use
 
-Also, it will print out the migration-generation command for you to use.
+Also, it will print out **the migration-generation command** for you to use.
 
 ## Tell me more
 
@@ -37,7 +37,7 @@ It just reads an input and spits out files.
 
 1. Clone or download the repo
 
-2. Make sure you have Rails gem installed, which you probably do. (RGen uses ActiveSupport::Inflector)
+2. Make sure you have Rails gem installed, which you probably do. (grants-rgen uses `ActiveSupport::Inflector`)
 
 3. **App Configuration**
 
