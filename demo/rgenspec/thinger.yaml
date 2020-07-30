@@ -2,7 +2,8 @@
 # A note on optional/required:
 #   Default value is "optional".  If both are present, rgen will error out.
 model:
-  name: thinger
+  # camel-case this name
+  name: Thinger
   attributes:
     # <attribute name>: <space-separated settings>
     # -> One of those attributes *must* be a datatype: string/integer/decimal/boolean

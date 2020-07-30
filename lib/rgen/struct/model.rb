@@ -18,6 +18,7 @@ class Rgen::Struct::Model
   end
 
   def initialize(name)
+    raise "model/name must be CamelCase" if /^[a-z]/.match(name[0])
     @name = name
     @attributes = []
     @belong_tos = []
