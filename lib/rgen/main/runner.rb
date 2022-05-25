@@ -2,16 +2,16 @@ require 'psych'
 
 class Rgen::Main::Runner
   def self.run(model_config)
-    target_file = File.join(Dir.pwd, model_config)
+    target_file = model_config
     target_dir = File.dirname(target_file)
     config_file = File.join(target_dir, "rgen.config.yaml")
 
-    unless File.exist?(target_file) && File.exist?(target_file)
+    unless File.exist?(target_file) && File.readable?(target_file)
       raise "target file not found or can't be read: #{target_file}"
     end
 
-    unless File.exist?(config_file) && File.exist?(config_file)
-      raise "target file not found or can't be read: #{config_file}"
+    unless File.exist?(config_file) && File.readable?(config_file)
+      raise "config file not found or can't be read: #{config_file}"
     end
 
     config = Rgen::Main::Config.from_hash(Psych.load_file(config_file))

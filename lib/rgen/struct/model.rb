@@ -1,5 +1,5 @@
 class Rgen::Struct::Model
-  attr_reader :name, :attributes, :belong_tos
+  attr_reader :name, :attributes, :belong_tos, :enums
 
   def self.from_hash(input)
     inp = input['model'] or raise "expected to find top-level yaml key 'model'"
@@ -8,7 +8,7 @@ class Rgen::Struct::Model
     rv = Rgen::Struct::Model.new(name)
 
     inp['attributes']&.each do |k,v|
-      rv.attributes << Rgen::Struct::Attribute.create(k, v.split(' '))
+      rv.attributes << Rgen::Struct::Attribute.create(k, v)
     end
     inp['belongs_to']&.each do |k,v|
       rv.belong_tos << Rgen::Struct::BelongTo.create(k, v || {})

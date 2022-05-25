@@ -4,26 +4,54 @@ class Rgen::Gen::ModelGenerator
 
   def generate_file(model, destination)
     fullpath = File.join(destination, model.name.underscore + '.rb')
-    File.write(
-      fullpath,
-      generate_file_content(
-        model.name,
-        generate_belongs_string(model),
-        generate_validations_string(model)))
+    File.write(fullpath, generate_file_content(model))
     fullpath
   end
 
   private
 
-  def generate_file_content(model_name, belongs_str, validations_str)
-    <<TEMPLATE_END
-class #{model_name} < ApplicationRecord
-#{belongs_str}
+  def generate_file_content(model)
+    belongs_str = generate_belongs_string(model)
+    enums_str = generate_enum_definitions_string(model)
+    validations_str = generate_validations_string(model)
 
-#{validations_str}
-end
-TEMPLATE_END
-end
+    rva = []
+    rva << '# frozen_string_literal: true'
+    rva << "class #{model.name} < ApplicationRecord"
+
+    unless belongs_str.strip.empty?
+      rva << belongs_str
+      rva << ''
+    end
+
+    unless enums_str.strip.empty?
+      rva << enums_str
+      rva << ''
+    end
+
+    unless validations_str.strip.empty?
+      rva << validations_str
+      rva << 'end'
+    end
+
+    rva.join("\n") + "\n"
+  end
+
+  def generate_enum_definitions_string(model)
+    enums = {}
+    model.attributes.select { |att| !!att.enums }.each do |att|
+      enums[att.name] = att.enums
+    end
+    rva = []
+    enums.each do |name, enum_values|
+      rva << "  enum #{name}: {"
+      enum_values.each_with_index do |ev,idx|
+        rva << "    #{ev}: #{idx},"
+      end
+      rva << '  }'
+    end
+    rva.join("\n")
+  end
 
   def generate_single_belongs(belong, model)
     rv = ''
@@ -46,12 +74,22 @@ end
     rva.join("\n")
   end
 
-  def generate_validation_for_attribute(att)
+  def generate_validation_for_attribute(model_name, att)
     return nil unless att.presence || att.unique
     rv = nil
 
-    if att.datatype=='boolean' && att.presence
-      rv = "  validates :#{att.name}, inclusion: { in: [true, false] }"
+    if att.datatype == 'boolean'
+      if att.presence
+        rv = "  validates :#{att.name}, inclusion: { in: [true, false] }"
+      else
+        rv = "  validates :#{att.name}, inclusion: { in: [true, false, nil] }"
+      end
+    elsif att.datatype == 'enum'
+      if att.presence
+        rv = "  validates :#{att.name}, inclusion: { in: #{model_name}.#{att.name.pluralize.underscore}.keys }"
+      else
+        rv = "  validates :#{att.name}, inclusion: { in: #{model_name}.#{att.name.pluralize.underscore}.keys + [nil] }"
+      end
     else
       rv = "  validates :#{att.name}"
       rv << ", presence: true" if att.presence
@@ -64,7 +102,7 @@ end
   def generate_validations_string(model)
     rva = []
     model.attributes.each do |att|
-      val = generate_validation_for_attribute(att)
+      val = generate_validation_for_attribute(model.name, att)
       rva << val unless val.nil?
     end
     rva.join("\n")

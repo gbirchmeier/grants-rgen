@@ -15,7 +15,13 @@ class Rgen::Gen::MigrationCommandGenerator
   private
 
   def build_att(att)
-    "#{att.name}:#{att.datatype}"
+    datatype = case att.datatype
+    when 'enum' then 'integer'
+    else att.datatype
+    end
+
+    "#{att.name}:#{datatype}"
+
     # May be relevant to future improvements
     # https://edgeguides.rubyonrails.org/active_record_migrations.html#passing-modifiers
     # https://edgeguides.rubyonrails.org/active_record_migrations.html#column-modifiers

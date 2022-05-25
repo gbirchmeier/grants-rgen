@@ -4,51 +4,56 @@ class Rgen::Gen::FactoryGenerator
 
   def generate_file(model, destination)
     fullpath = File.join(destination, model.name.pluralize.underscore + '.rb')
-    File.write(
-      fullpath,
-      generate_file_content(
-        model.name,
-        generate_default_values_string_from_attributes(model),
-        generate_default_values_string_from_belong_tos(model)))
+    File.write(fullpath, generate_file_content(model))
     fullpath
   end
 
   private
 
-  def generate_file_content(model_name, attributes_str, belong_tos_str)
-    <<TEMPLATE_END
-FactoryBot.define do
-  factory :#{model_name.underscore} do
-#{attributes_str}
-#{belong_tos_str}
-  end
-end
-TEMPLATE_END
+  def generate_file_content(model)
+    attributes_str = generate_default_values_string_from_attributes(model)
+    belong_tos_str = generate_default_values_string_from_belong_tos(model)
+
+    rva = []
+    rva << 'FactoryBot.define do'
+    rva << "  factory :#{model.name.underscore} do"
+    unless attributes_str.strip.empty?
+      rva << attributes_str
+    end
+    unless belong_tos_str.strip.empty?
+      rva << belong_tos_str
+    end
+    rva << '  end'
+    rva << 'end'
+
+    rva.join("\n") + "\n"
   end
 
-  def generate_for_att(att)
+  def generate_for_att(model_name, att)
     return nil unless att.presence
     case att.datatype
       when 'string'
-        if(att.factory_sequence)
-          return "    sequence(:#{att.name}) {|n| \"#{att.name}-\#{n}\"}"
+        if att.factory_sequence
+          return "    sequence(:#{att.name}) {|n| \"#{att.name}-\#{n}\" }"
         else
           return "    #{att.name} { 'foo' }"
         end 
       when 'integer'
-        if(att.factory_sequence)
-          return "    sequence(:#{att.name}) {|n| n}"
+        if att.factory_sequence
+          return "    sequence(:#{att.name}) {|n| n }"
         else
           return "    #{att.name} { 123 }"
         end 
       when 'boolean'
         return "    #{att.name} { false }"
       when 'decimal'
-        if(att.factory_sequence)
-          return "    sequence(:#{att.name}) {|n| n + .99}"
+        if att.factory_sequence
+          return "    sequence(:#{att.name}) {|n| n + .99 }"
         else
           return "    #{att.name} { 123.4 }"
         end 
+      when 'enum'
+        return "    #{att.name} { #{model_name}.#{att.name.pluralize.underscore}[:#{att.enums.first.to_s}] }"
       else
         raise "unsupported type '#{att.datatype}' (#{model_name}.#{att.name})"
     end
@@ -57,7 +62,7 @@ TEMPLATE_END
   def generate_default_values_string_from_attributes(model)
     rva = []
     model.attributes.each do |att|
-      x = generate_for_att(att)
+      x = generate_for_att(model.name, att)
       rva << x unless x.nil?
     end
     rva.join("\n")
