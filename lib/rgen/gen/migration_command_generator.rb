@@ -6,7 +6,8 @@ class Rgen::Gen::MigrationCommandGenerator
     params = build_params(model)
     a = ['Migration command:']
     a << "  > rails generate migration Create#{model.name.pluralize} #{params.join(' ')} --timestamps"
-    a << "  NOTE: don't forget to add default values to the migration!"
+    a << "  NOTE: 'default' and 'null' cannot be set via the command line,"
+    a << "        so don't forget to edit the migration!"
     a << '' << ''
     a.join("\n")
   end
