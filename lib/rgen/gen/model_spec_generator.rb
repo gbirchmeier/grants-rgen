@@ -1,6 +1,6 @@
 require 'active_support/inflector'
 
-class Rgen::Gen::SpecGenerator
+class Rgen::Gen::ModelSpecGenerator
 
   def generate_file(model, destination)
     fullpath = File.join(destination, model.name.underscore + '_spec.rb')

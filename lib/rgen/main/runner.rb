@@ -47,12 +47,16 @@ class Rgen::Main::Runner
     case name
     when 'rails_model'
       Rgen::Gen::ModelGenerator.new
-    when 'rspec'
-      Rgen::Gen::SpecGenerator.new
+    when 'model_spec'
+      Rgen::Gen::ModelSpecGenerator.new
     when 'factory_bot'
       Rgen::Gen::FactoryGenerator.new
     when 'active_admin'
       Rgen::Gen::ActiveAdminGenerator.new
+    when 'api_controller'
+      Rgen::Gen::ApiControllerGenerator.new
+    when 'request_spec'
+      Rgen::Gen::RequestSpecGenerator.new
     else
       raise "unknown file generator: #{name}"
     end
