@@ -32,7 +32,7 @@ class Rgen::Gen::ApiControllerGenerator
     rva << "      render json: @#{model.name.downcase}, status: :created #201"
     rva << '    else'
     rva << '      render json: {'
-    rva << '        error: \'Invalid parameters\','
+    rva << '        error: \'Invalid attributes\','
     rva << "        details: @#{model.name.downcase}.errors.full_messages"
     rva << '      }, status: :bad_request # 400'
     rva << '    end'
