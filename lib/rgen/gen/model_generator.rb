@@ -44,11 +44,13 @@ class Rgen::Gen::ModelGenerator
     end
     rva = []
     enums.each do |name, enum_values|
-      rva << "  enum #{name}: {"
-      enum_values.each_with_index do |ev,idx|
-        rva << "    #{ev}: #{idx},"
+      rva << "  assignable_values_for :#{name} do"
+      rva << '    ['
+      enum_values.each do |ev|
+        rva << "      #{ev},"
       end
-      rva << '  }'
+      rva << '    ]'
+      rva << '  end'
     end
     rva.join("\n")
   end
