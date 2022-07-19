@@ -40,12 +40,14 @@ TEMPLATE_END
       rva << "    it { should allow_value(false).for(:#{att.name}) }"
       rva << "    it { #{att.presence ? 'should_not' : 'should'} allow_value(nil).for(:#{att.name}) }"
     elsif att.datatype == 'enum'
-      rva << "    it { should allow_value(:#{att.enums.first}).for(:#{att.name}) }"
-      rva << "    it { #{att.presence ? 'should_not' : 'should'} allow_value(nil).for(:#{att.name}) }"
+      rva << "    it { should validate_presence_of(:#{att.name}) }" if att.presence
+      rva << "    it { should allow_value('#{att.enums.first}').for :#{att.name} }"
+      rva << "    it { should_not allow_value('INVALID_VALUE').for :#{att.name} }"
     else
       rva << "    it { should validate_presence_of(:#{att.name}) }" if att.presence
       rva << "    it { should validate_uniqueness_of(:#{att.name}) }" if att.unique
     end
+    rva << ''
     rva.join("\n")
   end
 

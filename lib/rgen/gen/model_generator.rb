@@ -38,20 +38,26 @@ class Rgen::Gen::ModelGenerator
   end
 
   def generate_enum_definitions_string(model)
-    enums = {}
+    enums = []
     model.attributes.select { |att| !!att.enums }.each do |att|
-      enums[att.name] = att.enums
+      enums << att
     end
+    enums.collect {|enumX| generate_single_enum_def_string(enumX) }.join("\n")
+  end
+
+  def generate_single_enum_def_string(enumX)
     rva = []
-    enums.each do |name, enum_values|
-      rva << "  assignable_values_for :#{name} do"
-      rva << '    ['
-      enum_values.each do |ev|
-        rva << "      #{ev},"
-      end
-      rva << '    ]'
-      rva << '  end'
+    rva << "  assignable_values_for :#{enumX.name}, allow_blank: true do"
+    rva << '    ['
+    enumX.enums.each do |ev|
+      rva << "      '#{ev}',"
     end
+    rva << '    ]'
+    rva << '  end'
+    if enumX.presence
+      rva << "  validates :#{enumX.name}, presence: true"
+    end
+    rva << ''
     rva.join("\n")
   end
 
@@ -80,17 +86,13 @@ class Rgen::Gen::ModelGenerator
     return nil unless att.presence || att.unique
     rv = nil
 
+    return if att.datatype == 'enum'
+
     if att.datatype == 'boolean'
       if att.presence
         rv = "  validates :#{att.name}, inclusion: { in: [true, false] }"
       else
         rv = "  validates :#{att.name}, inclusion: { in: [true, false, nil] }"
-      end
-    elsif att.datatype == 'enum'
-      if att.presence
-        rv = "  validates :#{att.name}, inclusion: { in: #{model_name}.#{att.name.pluralize.underscore}.keys }"
-      else
-        rv = "  validates :#{att.name}, inclusion: { in: #{model_name}.#{att.name.pluralize.underscore}.keys + [nil] }"
       end
     else
       rv = "  validates :#{att.name}"

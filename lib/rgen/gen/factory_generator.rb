@@ -53,7 +53,7 @@ class Rgen::Gen::FactoryGenerator
           return "    #{att.name} { 123.4 }"
         end 
       when 'enum'
-        return "    #{att.name} { #{model_name}.#{att.name.pluralize.underscore}[:#{att.enums.first.to_s}] }"
+        return "    #{att.name} { '#{att.enums.first.to_s}' }"
       else
         raise "unsupported type '#{att.datatype}' (#{model_name}.#{att.name})"
     end
