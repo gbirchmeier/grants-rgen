@@ -31,9 +31,9 @@ class Rgen::Gen::ModelGenerator
 
     unless validations_str.strip.empty?
       rva << validations_str
-      rva << 'end'
     end
 
+    rva << 'end'
     rva.join("\n") + "\n"
   end
 
