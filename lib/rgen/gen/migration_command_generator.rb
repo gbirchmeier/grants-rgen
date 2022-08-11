@@ -16,7 +16,7 @@ class Rgen::Gen::MigrationCommandGenerator
 
   def build_att(att)
     datatype = case att.datatype
-    when 'enum' then 'integer'
+    when 'enum' then 'string'
     else att.datatype
     end
 
