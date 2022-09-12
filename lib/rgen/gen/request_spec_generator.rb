@@ -14,7 +14,7 @@ class Rgen::Gen::RequestSpecGenerator
     rva = []
     rva << "require 'rails_helper'"
     rva << ''
-    rva << "RSpec.describe \"#{model.name.pluralize}\", type: :request do"
+    rva << "RSpec.describe '#{model.name.pluralize}', type: :request do"
     rva << "  describe 'GET #{model.name.underscore.pluralize}/' do"
     rva << '    it \'empty table\' do'
     rva << "      get '/#{model.name.underscore.pluralize}'"
