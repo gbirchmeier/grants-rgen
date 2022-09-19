@@ -22,7 +22,7 @@ class Rgen::Gen::ApiControllerGenerator
     rva << '    begin'
     rva << "      render json: #{model.name}.find(params[:id]), status: :ok #200"
     rva << '    rescue ActiveRecord::RecordNotFound => e'
-    rva << '      render json: { error: \'Record not found\' }, status: :not_found #404'
+    rva << '      render json: { error: e.message }, status: :not_found #404'
     rva << '    end'
     rva << '  end'
     rva << ''
